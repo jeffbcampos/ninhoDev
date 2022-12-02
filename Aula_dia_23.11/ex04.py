@@ -13,7 +13,7 @@ print(f"A ordem crescente da lista é {lista}")
 def limite(lista, menor, maior):
     newLista = []
     for i in range(len(lista) - 1):
-        if lista[i] >= menor and lista[i ]<= maior:
+        if lista[i] >= menor and lista[i] <= maior:
             newLista.append(lista[i])       
     newLista.sort()
     return newLista
