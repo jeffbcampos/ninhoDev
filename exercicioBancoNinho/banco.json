@@ -1,0 +1,27 @@
+[
+  {
+    "ID": 1,
+    "Nome": "Joao",
+    "Cpf": "654123654",
+    "Salario": 2630.0,
+    "Cargo": "Operador Senior"
+  },
+  {
+    "ID": 2,
+    "Nome": "Natalia",
+    "Cpf": "235426265",
+    "Salario": 684.0,
+    "Cargo": "Gerente",
+    "Login": "naty",
+    "Senha": "123"
+  },
+  {
+    "ID": 3,
+    "Nome": "Jeferson",
+    "Cpf": "0516513215",
+    "Salario": 3450.0,
+    "Cargo": "Gerente",
+    "Login": "jeffbcampos",
+    "Senha": "123"
+  }
+]
