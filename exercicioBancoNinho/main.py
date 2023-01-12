@@ -6,7 +6,6 @@ import getpass
 with open(r"C:\Users\NatyeJeff\Documents\Codigos Python\Codigos_Python\exercicioBancoNinho\banco.json") as f:
     dados = json.load(f)
 
-
 def salvarBanco(funcionarios):
     novoBanco = []
     for func in funcionarios:
@@ -29,34 +28,51 @@ for func in dados:
 
 empresa = Empresa(funcionarios)
 
+
 def find_index(lista, chave, valor):
-    for i, dic in enumerate(lista):
+    for i, dic in enumerate(lista):        
         if dic[chave] == valor:
             return i + 1
     return -1
 
 def login():
-    id = int(input("Digite seu ID: "))        
-    for func in dados:       
-        if func["ID"] == id:
-            if func["Cargo"] == "Gerente":
-                login = input("Digite seu login: ")
-                if func["Login"] == login:           
-                    gerenteLogin = Gerente(func["ID"], func["Nome"], func["Cpf"], func["Salario"], func["Cargo"], func["Login"], func["Senha"])
-                    senha = getpass.getpass("Digite a senha: ")
-                    if gerenteLogin.senha == senha:
-                        print("Acesso permitido")
-                        return menuGerente(gerenteLogin)
+    id = input("Digite seu ID: ")
+    autenticado = False
+    while autenticado == False:        
+        for func in dados:       
+            if func["ID"] == int(id):
+                if func["Cargo"] == "Gerente":
+                    login = input("Digite seu login: ")
+                    if func["Login"] == login:           
+                        gerenteLogin = Gerente(func["ID"], func["Nome"], func["Cpf"], func["Salario"], func["Cargo"], func["Login"], func["Senha"])
+                        senha = getpass.getpass("Digite a senha: ")
+                        autenticado = gerenteLogin.autenticar(login, senha)
+                        if autenticado == True:                        
+                            return menuGerente(gerenteLogin)
+                        elif autenticado == False:
+                            print("Login inválido")
+                                                
+                        # menuGerente(gerenteLogin)
+                        # if gerenteLogin.senha == senha:
+                        #     print("Acesso permitido")                        
+                        # else:
+                        #     print("Acesso negado")
+                        #     return None                       
                     else:
-                        print("Acesso negado")
-                        return None                       
-            else:        
-                funcionarioLogin = Funcionario(func["ID"], func["Nome"], func["Cpf"], func["Salario"], func["Cargo"])
-                print("Logado como funcionário")
-                return menuFuncionario(funcionarioLogin)         
-        else:
-            break
+                        print("Login inválido")
+                        
+                else:        
+                    funcionarioLogin = Funcionario(func["ID"], func["Nome"], func["Cpf"], func["Salario"], func["Cargo"])
+                    print("Logado como funcionário")
+                    return menuFuncionario(funcionarioLogin)        
+        
     print("ID não encontrado")
+
+
+# def removerFuncionario(funcionarios, id):        
+#         id = int(input("Digite o ID: "))
+#         funcionarios.pop(id-1)
+
 def menuGerente(gerente):
     while True:
         print(f"\nBem vindo, {gerente.get_nome()}")
@@ -68,10 +84,14 @@ def menuGerente(gerente):
         opcao = input("\nDigite a opção desejada: ")        
         if opcao == '1':
             gerente.cadastrarFuncionario(funcionarios)
+            salvarBanco(funcionarios)
         elif opcao == '2':
             gerente.alterarFuncionario(funcionarios)
         elif opcao == '3':
-            gerente.removerFuncionario(funcionarios)
+            id = input("Digite o ID: ")
+            idRemove = find_index(dados, "ID", id)
+            print("Removendo Funcionário...")
+            funcionarios.pop(idRemove)            
         elif opcao == '4':
             gerente.listarFuncionarios(funcionarios)
         elif opcao == '5':
@@ -90,11 +110,12 @@ def menuFuncionario(funcionario):
         print("3 - Sair")
         opcao = input("Digite a opção desejada: ")
         if opcao == '1':
-            funcionario.alterarDados()
+            funcionario.alterarDados(funcionario)
         elif opcao == '2':
             funcionario.listarDados()
         elif opcao == '3':
             print("Saindo...")
+            salvarBanco(funcionarios)
             break        
         else:
             print("Opção inválida") 

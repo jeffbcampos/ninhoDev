@@ -55,14 +55,21 @@ class Gerente(Funcionario):
         self.senha = senha
 
     def autenticar(self, login, senha):
-        if self.login == login and self.senha == senha:
-            print('Acesso permitido')
-        else:
-            print('Acesso negado')
+        if self.login == login:
+            if self.senha == senha:
+                print('\nAcesso permitido')
+                return True
+            else:
+                print('\nAcesso negado')
+                return False
+        elif self.login != login:
+            print('\nAcesso negado')
+            return False      
+            
 
     def cadastrarFuncionario(self, funcionarios):
         print("Cadastrando funcionário")
-        # id = int(input("Digite o ID: "))
+        id = int(input("Digite o ID: "))
         nome = input("Digite o nome: ")
         cpf = input("Digite o CPF: ")
         salario = float(input("Digite o salário: "))
@@ -70,9 +77,9 @@ class Gerente(Funcionario):
         if cargo == "Gerente":
             login = input("Digite o login: ")
             senha = input("Digite a senha: ")
-            funcionarios.append(Gerente(len(funcionarios) + 1, nome, cpf, salario, cargo, login, senha))
+            funcionarios.append(Gerente(id, nome, cpf, salario, cargo, login, senha))
         else:
-            funcionarios.append(Funcionario(len(funcionarios) + 1, nome, cpf, salario, cargo))
+            funcionarios.append(Funcionario(id, nome, cpf, salario, cargo))
 
     def alterarFuncionario(self, funcionarios):
         print("Alterando funcionário\n")
@@ -91,13 +98,13 @@ class Gerente(Funcionario):
             funcionarios[id-1] = Gerente(id, funcionarios[id-1].get_nome(), funcionarios[id-1].get_cpf(), funcionarios[id-1].set_salario(salario), funcionarios[id-1].set_cargo(cargo), login, senha)
         else:
             funcionarios[id-1].set_salario(salario)
-            funcionarios[id-1].set_cargo(cargo)       
-        
+            funcionarios[id-1].set_cargo(cargo)        
+    
 
-    def removerFuncionario(self, funcionarios):
-        print("Removendo funcionário")
-        id = int(input("Digite o ID: "))
-        funcionarios.pop(id-1)
+    # def removerFuncionario(self, funcionarios):
+    #     print("Removendo funcionário...")
+    #     id = int(input("Digite o ID: "))
+    #     funcionarios.pop(id-1)
 
     def listarFuncionarios(self, funcionarios):
         print("Listando funcionários\n")

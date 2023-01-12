@@ -1,12 +1,5 @@
 [
   {
-    "ID": 1,
-    "Nome": "Joao",
-    "Cpf": "654123654",
-    "Salario": 2630.0,
-    "Cargo": "Operador Senior"
-  },
-  {
     "ID": 2,
     "Nome": "Natalia",
     "Cpf": "235426265",
@@ -23,5 +16,19 @@
     "Cargo": "Gerente",
     "Login": "jeffbcampos",
     "Senha": "123"
+  },
+  {
+    "ID": 4,
+    "Nome": "Jubileu",
+    "Cpf": "654984215",
+    "Salario": 1650.0,
+    "Cargo": "Illuminati"
+  },
+  {
+    "ID": 5,
+    "Nome": "Popeye",
+    "Cpf": "89846525",
+    "Salario": 2630.0,
+    "Cargo": "Sepervisor"
   }
 ]
