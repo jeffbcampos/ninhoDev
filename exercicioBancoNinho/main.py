@@ -36,7 +36,20 @@ def find_index(lista, chave, valor):
     return -1
 
 def login():
-    id = input("Digite seu ID: ")
+    id = ''
+    encontrado = False
+    while not encontrado:
+        id = input("Digite seu ID: ")
+        if id.isnumeric() == False:
+            print("ID inválido")
+        else:
+            for func in dados:
+                if func["ID"] == int(id):
+                    encontrado = True
+                    break
+            if not encontrado:
+                print("ID não encontrado")            
+                            
     autenticado = False
     while autenticado == False:        
         for func in dados:       
